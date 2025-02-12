@@ -36,14 +36,20 @@ export default App*/
 
 // src/App.jsx
 import React from 'react';
-import WelcomeMessage from './components/WelcomeMessage';
+import WelcomeMessage from './components/WelcomeMessage'; // Task 1
+import Header from './components/Header'; // Task 2
+import MainContent from './components/MainContent'; // Task 2
+import Footer from './components/Footer'; // Task 2
 
 function App() {
-    return (
-        <div>
-            <WelcomeMessage />
-        </div>
-    );
+  return (
+    <div>
+      <WelcomeMessage />  {/* From Task 1 */}
+      <Header />          {/* From Task 2 */}
+      <MainContent />     {/* From Task 2 */}
+      <Footer />          {/* From Task 2 */}
+    </div>
+  );
 }
 
 export default App;
