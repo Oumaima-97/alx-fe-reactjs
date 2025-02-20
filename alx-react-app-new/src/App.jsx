@@ -41,20 +41,22 @@ import Header from './components/Header'; // Task 2
 import MainContent from './components/MainContent'; // Task 2
 import Footer from './components/Footer'; // Task 2
 import UserProfile from './components/UserProfile'; // Task3
+import Counter from './components/Counter'; // Import the Counter component for Task 4
 
 function App() {
   return (
     <div>
-      <WelcomeMessage />  {/* From Task 1 */}
-      <Header />          {/* From Task 2 */}
-      <MainContent />     {/* From Task 2 */}
-      <Footer />          {/* From Task 2 */}
-      <UserProfile 
-        name="Alice" 
-        age="25" 
-        bio="Loves hiking and photography" 
-      />                {/* From Task 3 */}
-    </div>
+    <WelcomeMessage />  {/* From Task 1 */}
+    <Header />          {/* From Task 2 */}
+    <MainContent />     {/* From Task 2 */}
+    <Footer />          {/* From Task 2 */}
+    <UserProfile 
+      name="Alice" 
+      age="25" 
+      bio="Loves hiking and photography" 
+    />                {/* From Task 3 */}
+    <Counter />         {/* From Task 4 - New Counter Component */}
+  </div>
   );
 }
 
