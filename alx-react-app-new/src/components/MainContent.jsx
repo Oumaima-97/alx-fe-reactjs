@@ -1,12 +1,13 @@
 // src/components/MainContent.jsx
-const MainContent = () => {
+function MainContent() {
   return (
-    <main style={{ backgroundColor: '#f5f5f5', padding: '20px', textAlign: 'center' }}>
-      <p style={{ fontSize: '18px', color: '#333' }}>Welcome to the best cities in the world!</p>
+    <main style={{ padding: '20px', fontSize: '18px', textAlign: 'center' }}>
+      <p>I love to visit New York, Paris, and Tokyo.</p>
     </main>
   );
-};
+}
 
 export default MainContent;
+
 
   
