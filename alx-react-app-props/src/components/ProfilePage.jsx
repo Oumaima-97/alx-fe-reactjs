@@ -18,7 +18,7 @@ function ProfilePage() {
 }
 
 export default ProfilePage;*/
-import React from 'react';
+//import React from 'react';
 import UserInfo from './UserInfo';
 
 function ProfilePage() {

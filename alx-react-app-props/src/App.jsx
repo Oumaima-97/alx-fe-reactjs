@@ -1,15 +1,14 @@
-import React from 'react';
-import ProfilePage from './components/ProfilePage';
-import UserContext from './UserContext'; // Import context
+//import React from 'react';
+import ProfilePage from "./components/ProfilePage";
+import { UserProvider } from "./UserContext"; // Import the UserProvider
 
 function App() {
-  const userData = { name: "Jane Doe", email: "jane.doe@example.com" };
-
   return (
-    <UserContext.Provider value={userData}> {/* Pass data through context */}
-      <ProfilePage />  {/* The component consuming the context */}
-    </UserContext.Provider>
+    <UserProvider>
+      <ProfilePage />
+    </UserProvider>
   );
 }
 
 export default App;
+

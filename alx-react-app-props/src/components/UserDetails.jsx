@@ -15,11 +15,10 @@ function UserDetails() {
 
 export default UserDetails;*/
 
-import React from 'react';
-import { useUser } from '../UserContext';
+import { useUser } from "../UserContext"; // Import the useUser hook
 
 function UserDetails() {
-  const userData = useUser();
+  const userData = useUser(); // Consume the context
 
   return (
     <div>
@@ -30,4 +29,5 @@ function UserDetails() {
 }
 
 export default UserDetails;
+
 
