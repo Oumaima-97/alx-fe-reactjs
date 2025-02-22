@@ -1,10 +1,10 @@
 import { UserProvider } from "./UserContext.jsx";
-import ProfilePage from "./components/ProfilePage.jsx";
+import UserProfile from './components/UserProfile.jsx';
 
 function App() {
   return (
     <UserProvider>
-      <ProfilePage />
+      <UserProfile />
     </UserProvider>
   );
 }
