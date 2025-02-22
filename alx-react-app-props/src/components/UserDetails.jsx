@@ -15,7 +15,7 @@ function UserDetails() {
 
 export default UserDetails;*/
 
-import { useUser } from "../UserContext"; // Import the useUser hook
+import { useUser } from "../UserContext.jsx"; // Import the useUser hook
 
 function UserDetails() {
   const userData = useUser(); // Consume the context

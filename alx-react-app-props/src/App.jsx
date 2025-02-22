@@ -1,6 +1,5 @@
-//import React from 'react';
-import ProfilePage from "./components/ProfilePage";
-import { UserProvider } from "./UserContext"; // Import the UserProvider
+import { UserProvider } from "./UserContext.jsx";
+import ProfilePage from "./components/ProfilePage.jsx";
 
 function App() {
   return (
@@ -11,4 +10,3 @@ function App() {
 }
 
 export default App;
-

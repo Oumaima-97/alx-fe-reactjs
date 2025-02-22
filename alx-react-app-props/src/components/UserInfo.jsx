@@ -8,13 +8,16 @@ function UserInfo() {
 
 export default UserInfo;*/
 
-//import React from 'react';
-import UserDetails from "./UserDetails";
+import React from 'react';
+import { useUser } from "../UserContext.jsx"; // Adjust the path if needed
+import UserDetails from "./UserDetails.jsx";
 
 function UserInfo() {
-  return <UserDetails />;
+  const userData = useUser();
+  return <UserDetails userData={userData} />;
 }
 
 export default UserInfo;
+
 
 

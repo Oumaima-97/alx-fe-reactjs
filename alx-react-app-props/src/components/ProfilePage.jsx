@@ -1,29 +1,16 @@
-/*import React, { useContext } from 'react';
-import { UserContext } from '../UserContext'; // Path should be correct
+import { useUser } from "../UserContext.jsx";
 
 function ProfilePage() {
-  const userData = useContext(UserContext);  // Use the context to get userData
+  const user = useUser();
 
-  if (!userData) {
-    return <p>Loading...</p>;  // Fallback if userData is not found
-  }
+  if (!user) return <p>Loading user data...</p>;
 
   return (
     <div>
-      <h1>Profile Page</h1>
-      <p>Name: {userData.name}</p>
-      <p>Email: {userData.email}</p>
+      <h2>Name: {user.name}</h2>
+      <p>Email: {user.email}</p>
     </div>
   );
 }
 
-export default ProfilePage;*/
-//import React from 'react';
-import UserInfo from './UserInfo';
-
-function ProfilePage() {
-  return <UserInfo />;
-}
-
 export default ProfilePage;
-
