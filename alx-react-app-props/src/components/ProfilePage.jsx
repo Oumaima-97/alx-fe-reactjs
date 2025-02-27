@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import UserProfile from './UserProfile';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../UserContext.js';
 
 const ProfilePage = () => {
   const user = useContext(UserContext); // Access user data from context

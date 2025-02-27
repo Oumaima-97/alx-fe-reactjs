@@ -1,6 +1,6 @@
 // src/UserDetails.jsx
 import React from 'react';
-import { useUser } from '../UserContext';
+import { useUser } from '../UserContext.js';
 
 function UserDetails() {
   const userData = useUser();  // Get user data from context
