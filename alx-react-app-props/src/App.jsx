@@ -1,14 +1,18 @@
-// src/App.jsx
 import React from 'react';
-import { UserProvider } from './UserContext';  // Import the UserProvider
-import UserProfile from './components/UserProfile';  // Import the component that will consume the context
+import ProfilePage from './components/ProfilePage';
+import { UserContext } from './UserContext';
 
-function App() {
+const App = () => {
+  const userData = {
+    name: "Jane Doe",
+    email: "jane.doe@example.com"
+  };
+
   return (
-    <UserProvider>  {/* Wrap the components inside UserProvider */}
-      <UserProfile />
-    </UserProvider>
+    <UserContext.Provider value={userData}>
+      <ProfilePage />
+    </UserContext.Provider>
   );
-}
+};
 
 export default App;

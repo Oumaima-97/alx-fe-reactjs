@@ -2,7 +2,7 @@
 import React, { createContext, useState } from 'react';
 
 // Create a context for user data
-export const UserContext = createContext();
+export const UserContext = createContext(null);
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState({
