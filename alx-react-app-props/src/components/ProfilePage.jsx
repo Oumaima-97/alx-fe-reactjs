@@ -1,14 +1,21 @@
-import React, { useContext } from 'react';
-import UserProfile from './UserProfile';
-import { UserContext } from '../UserContext.js';
+import { useContext } from "react";
+import { UserContext } from "../UserContext";
 
 const ProfilePage = () => {
-  const user = useContext(UserContext); // Access user data from context
+  const { userData, setUserData } = useContext(UserContext);
+
+  const updateUser = () => {
+    setUserData({
+      name: "John Smith",
+      email: "john.smith@example.com",
+    });
+  };
 
   return (
     <div>
-      <h1>Profile Page</h1>
-      <UserProfile name={user.name} email={user.email} />
+      <h2>{userData.name}</h2>
+      <p>Email: {userData.email}</p>
+      <button onClick={updateUser}>Update Profile</button>
     </div>
   );
 };
