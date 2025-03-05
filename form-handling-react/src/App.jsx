@@ -1,10 +1,10 @@
-import RegistrationForm from "./components/RegistrationForm";
+import FormikForm from "./components/formikForm";
 
 function App() {
     return (
         <div>
-            <h1>Register</h1>
-            <RegistrationForm />
+            <h1>Register with Formik</h1>
+            <FormikForm />
         </div>
     );
 }
