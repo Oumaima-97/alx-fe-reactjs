@@ -5,10 +5,27 @@ const RegistrationForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", { username, email, password });
+    let formErrors = {};
+
+    // Basic validation for empty fields
+    if (!username) formErrors.username = "Username is required";
+    if (!email) formErrors.email = "Email is required";
+    if (!password) formErrors.password = "Password is required";
+
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+    } else {
+      console.log("Form submitted:", { username, email, password });
+      // Optionally, you can reset the form here
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setErrors({});
+    }
   };
 
   return (
@@ -18,27 +35,30 @@ const RegistrationForm = () => {
         <input
           type="text"
           name="username"
-          value={username}  // ✅ Matches validator
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+        {errors.username && <p>{errors.username}</p>}
       </div>
       <div>
         <label>Email:</label>
         <input
           type="email"
           name="email"
-          value={email}  // ✅ Matches validator
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        {errors.email && <p>{errors.email}</p>}
       </div>
       <div>
         <label>Password:</label>
         <input
           type="password"
           name="password"
-          value={password}  // ✅ Matches validator
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {errors.password && <p>{errors.password}</p>}
       </div>
       <button type="submit">Register</button>
     </form>
