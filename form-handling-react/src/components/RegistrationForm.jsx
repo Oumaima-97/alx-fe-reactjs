@@ -1,22 +1,14 @@
 import { useState } from "react";
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // Separate state variables instead of an object
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    console.log("Form submitted:", { username, email, password });
   };
 
   return (
@@ -26,8 +18,8 @@ const RegistrationForm = () => {
         <input
           type="text"
           name="username"
-          value={formData.username}  // ✅ Controlled input
-          onChange={handleChange}
+          value={username}  // ✅ Matches validator
+          onChange={(e) => setUsername(e.target.value)}
         />
       </div>
       <div>
@@ -35,8 +27,8 @@ const RegistrationForm = () => {
         <input
           type="email"
           name="email"
-          value={formData.email}  // ✅ Controlled input
-          onChange={handleChange}
+          value={email}  // ✅ Matches validator
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div>
@@ -44,8 +36,8 @@ const RegistrationForm = () => {
         <input
           type="password"
           name="password"
-          value={formData.password}  // ✅ Controlled input
-          onChange={handleChange}
+          value={password}  // ✅ Matches validator
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       <button type="submit">Register</button>
