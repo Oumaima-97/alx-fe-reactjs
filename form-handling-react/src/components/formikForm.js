@@ -1,62 +1,65 @@
-import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 const RegistrationForm = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  // Validation schema using Yup
+  const validationSchema = Yup.object({
+    username: Yup.string().required("Le nom d'utilisateur est requis."),
+    email: Yup.string().email("Email invalide").required("L'email est requis."),
+    password: Yup.string().required("Le mot de passe est requis."),
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let newErrors = {};
-
-    if (!username) newErrors.username = "Le nom d'utilisateur est requis.";
-    if (!email) newErrors.email = "L'email est requis.";
-    if (!password) newErrors.password = "Le mot de passe est requis.";
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length > 0) return;
-
-    console.log("Form Submitted", { username, email, password });
+  // Handle form submission
+  const handleSubmit = (values) => {
+    console.log("Form Submitted", values);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Nom d'utilisateur:</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
-      </div>
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
-      </div>
-      <div>
-        <label>Mot de passe:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
-      </div>
-      <button type="submit">S'inscrire</button>
-    </form>
+    <Formik
+      initialValues={{
+        username: '',
+        email: '',
+        password: '',
+      }}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ touched }) => (
+        <Form>
+          <div>
+            <label htmlFor="username">Nom d'utilisateur:</label>
+            <Field
+              type="text"
+              name="username"
+              id="username"
+            />
+            <ErrorMessage name="username" component="p" style={{ color: 'red' }} />
+          </div>
+
+          <div>
+            <label htmlFor="email">Email:</label>
+            <Field
+              type="email"
+              name="email"
+              id="email"
+            />
+            <ErrorMessage name="email" component="p" style={{ color: 'red' }} />
+          </div>
+
+          <div>
+            <label htmlFor="password">Mot de passe:</label>
+            <Field
+              type="password"
+              name="password"
+              id="password"
+            />
+            <ErrorMessage name="password" component="p" style={{ color: 'red' }} />
+          </div>
+
+          <button type="submit">S'inscrire</button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
