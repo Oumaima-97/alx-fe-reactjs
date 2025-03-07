@@ -1,11 +1,13 @@
+// src/App.jsx
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";  // Correctly import BrowserRouter as Router
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Components
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Profile from "./components/Profile";
-import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRoute
+import ProtectedRoute from "./components/ProtectedRoute";
+import BlogPost from "./components/BlogPost";  // Import the BlogPost component
 
 function App() {
   // Simulating user authentication (this can be based on real login status)
@@ -19,14 +21,17 @@ function App() {
         
         {/* Use ProtectedRoute to protect the profile page */}
         <Route
-          path="/profile/:id"  // Dynamic route for profile with an `id`
+          path="/profile/:id"
           element={
             <ProtectedRoute
-              element={<Profile />}  // Profile component to be displayed
-              isAuthenticated={isAuthenticated}  // Check if user is authenticated
+              element={<Profile />}
+              isAuthenticated={isAuthenticated}
             />
           }
         />
+
+        {/* Add route for dynamic blog post */}
+        <Route path="/blog/:id" element={<BlogPost />} /> {/* Dynamic route for blog post */}
       </Routes>
     </Router>
   );
