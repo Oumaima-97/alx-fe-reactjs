@@ -13,17 +13,19 @@ export default function PostsComponent() {
     data,
     error,
     isLoading,
-    isError, // ✅ Explicitly extract isError
+    isError,
     refetch,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
     staleTime: 5000, // Data remains fresh for 5 seconds
     cacheTime: 1000 * 60 * 5, // Cache persists for 5 minutes
+    refetchOnWindowFocus: true, // ✅ Automatically refetch data when window regains focus
+    keepPreviousData: true, // ✅ Keep the previous data while new data is being fetched
   });
 
   if (isLoading) return <p>Loading posts...</p>;
-  if (isError) return <p>Error: {error.message}</p>; // ✅ Check isError
+  if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <div>
