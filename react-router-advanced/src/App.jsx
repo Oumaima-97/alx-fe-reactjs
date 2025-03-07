@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Components
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Profile from "./pages/Profile";
+import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRoute
 
 function App() {
