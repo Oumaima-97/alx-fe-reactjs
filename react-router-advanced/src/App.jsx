@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";  // Correctly import BrowserRouter as Router
 
 // Components
 import Home from "./pages/Home";
@@ -19,11 +19,11 @@ function App() {
         
         {/* Use ProtectedRoute to protect the profile page */}
         <Route
-          path="/profile/:id"
+          path="/profile/:id"  // Dynamic route for profile with an `id`
           element={
             <ProtectedRoute
-              element={<Profile />}
-              isAuthenticated={isAuthenticated}
+              element={<Profile />}  // Profile component to be displayed
+              isAuthenticated={isAuthenticated}  // Check if user is authenticated
             />
           }
         />
