@@ -7,7 +7,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
-import BlogPost from "./components/BlogPost";  // Import the BlogPost component
+import BlogPost from "./components/BlogPost"; // Import the BlogPost component
 
 function App() {
   // Simulating user authentication (this can be based on real login status)
