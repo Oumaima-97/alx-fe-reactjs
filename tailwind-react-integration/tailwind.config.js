@@ -1,10 +1,16 @@
 module.exports = {
+  // Tailwind will scan these files for class names
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Ensures Tailwind scans all JS, JSX, TS, and TSX files in the src directory
-    "./public/index.html",        // If you're using any Tailwind classes in public/index.html, include it
+    "./src/**/*.{js,jsx,ts,tsx}",  // Include all relevant file extensions in the source directory
+    "./public/index.html",         // Include the HTML file if it contains Tailwind classes
   ],
+  
+  // Optional dark mode configuration. You can remove it or set it to 'media'
+  darkMode: 'media',  // Use 'media' or 'class' for dark mode behavior
+
   theme: {
     extend: {},
   },
+
   plugins: [],
 }
