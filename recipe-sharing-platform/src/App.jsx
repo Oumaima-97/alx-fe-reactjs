@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import RecipeDetail from "./components/RecipeDetail";
+import AddRecipeForm from "./components/AddRecipeForm"; // Import the AddRecipeForm component
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
 
           {/* RecipeDetail Route */}
           <Route path="/recipe/:id" element={<RecipeDetail />} />
+
+          {/* AddRecipeForm Route */}
+          <Route path="/add-recipe" element={<AddRecipeForm />} /> {/* New route for AddRecipeForm */}
         </Routes>
       </div>
     </Router>
