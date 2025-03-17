@@ -1,15 +1,15 @@
 import { useState } from "react";
 
 const AddRecipeForm = () => {
-  // Define state variables for form inputs and errors
+  // States for form fields and errors
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [steps, setSteps] = useState("");
-  const [errors, setErrors] = useState({}); // Object to store error messages
+  const [errors, setErrors] = useState({}); // Holds validation error messages
 
-  // Validate form inputs
+  // Validation function
   const validate = () => {
-    const newErrors = {}; // Object to collect validation errors
+    const newErrors = {}; // Object to collect errors
 
     // Check if title is empty
     if (!title) newErrors.title = "Title is required.";
@@ -18,31 +18,31 @@ const AddRecipeForm = () => {
     // Check if steps are empty
     if (!steps) newErrors.steps = "Preparation steps are required.";
 
-    setErrors(newErrors); // Set errors in state
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+    setErrors(newErrors); // Set error messages in state
+    return Object.keys(newErrors).length === 0; // Returns true if no errors
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload
 
     // Validate form before submission
     if (!validate()) {
-      return; // Stop form submission if validation fails
+      return; // Stop submission if validation fails
     }
 
-    // Clear errors and proceed with form submission
+    // Clear any existing errors after successful validation
     setErrors({});
 
-    // Form data can be processed or sent to an API here
+    // Process the form data
     const newRecipe = {
       title,
       ingredients,
       steps,
     };
 
+    // You can perform the submission here, for example, save the recipe or send it to an API
     console.log("New Recipe:", newRecipe);
-    // You can add further logic to handle saving the recipe or sending it to an API
   };
 
   return (
