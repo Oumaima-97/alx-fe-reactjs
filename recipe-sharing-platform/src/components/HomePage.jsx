@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { useState, useEffect } from "react";
 
 const HomePage = () => {
@@ -19,6 +20,12 @@ const HomePage = () => {
             <img src={recipe.image} alt={recipe.title} className="w-full h-40 object-cover rounded-md" />
             <h2 className="text-xl font-semibold mt-2">{recipe.title}</h2>
             <p className="text-gray-600 mt-1">{recipe.summary}</p>
+            <Link
+              to={`/recipe/${recipe.id}`} // Link to the Recipe Detail page with the recipe id
+              className="text-blue-500 hover:underline mt-3 block"
+            >
+              View Recipe
+            </Link>
           </div>
         ))}
       </div>
