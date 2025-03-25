@@ -1,40 +1,55 @@
-import React, { useState } from "react";
+// github-user-search/src/components/Search.js
+import React, { useState } from 'react';
+import { fetchUserData } from '../services/githubService';
 
-const Search = ({ onSearch, loading, error, user }) => {
-  const [query, setQuery] = useState("");  // State to hold the input value
+function Search() {
+  const [username, setUsername] = useState('');
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSearch = (e) => {
-    e.preventDefault(); // Prevent form submission
-    onSearch(query);    // Pass the query to the parent component
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setUserData(null);
+
+    try {
+      const data = await fetchUserData(username);
+      setUserData(data);
+    } catch (err) {
+      setError('Looks like we cant find the user');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div>
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}  // Update query state as user types
           placeholder="Enter GitHub username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <button type="submit">Search</button>
       </form>
 
-      {loading && <p>Loading...</p>}  {/* Show loading text while fetching data */}
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
 
-      {error && <p>Looks like we can't find the user</p>}  {/* Display error message if user is not found */}
-
-      {user && !error && (
-        <div className="user-card">
-          <img src={user.avatar_url} alt={`${user.login}'s avatar`} width="100" />
-          <h2>{user.login}</h2>
-          <a href={`https://github.com/${user.login}`} target="_blank" rel="noopener noreferrer">
-            View Profile
+      {userData && (
+        <div>
+          <img src={userData.avatar_url} alt="User Avatar" style={{ width: '100px', height: '100px' }} />
+          <h2>{userData.name || userData.login}</h2>
+          <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
+            GitHub Profile
           </a>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default Search;
