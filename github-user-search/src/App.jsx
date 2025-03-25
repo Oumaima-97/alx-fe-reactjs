@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Search from "./components/Search";
-import UserCard from "./components/UserCard";
-import ErrorMessage from "./components/ErrorMessage";
 import githubService from "./services/githubService";
 
 function App() {
@@ -26,10 +24,7 @@ function App() {
 
   return (
     <div>
-      <Search onSearch={handleSearch} />
-      {loading && <p>Loading...</p>}
-      {error && <ErrorMessage message={error} />}
-      {user && <UserCard user={user} />}
+      <Search onSearch={handleSearch} loading={loading} error={error} user={user} />
     </div>
   );
 }
