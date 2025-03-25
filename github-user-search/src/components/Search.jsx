@@ -22,9 +22,9 @@ const Search = ({ onSearch, loading, error, user }) => {
 
       {loading && <p>Loading...</p>}  {/* Show loading text while fetching data */}
 
-      {error && <p>{error}</p>}  {/* Display error message if there's an issue */}
+      {error && <p>Looks like we can't find the user</p>}  {/* Display error message if user is not found */}
 
-      {user && (
+      {user && !error && (
         <div className="user-card">
           <img src={user.avatar_url} alt={`${user.login}'s avatar`} width="100" />
           <h2>{user.login}</h2>
