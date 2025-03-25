@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SearchBar from "./components/SearchBar";
+import Search from "./components/Search";
 import UserCard from "./components/UserCard";
 import ErrorMessage from "./components/ErrorMessage";
 import githubService from "./services/githubService";
@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div>
-      <SearchBar onSearch={handleSearch} />
+      <Search onSearch={handleSearch} />
       {loading && <p>Loading...</p>}
       {error && <ErrorMessage message={error} />}
       {user && <UserCard user={user} />}
