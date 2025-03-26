@@ -1,4 +1,4 @@
-// github-user-search/src/components/Search.js
+// github-user-search/src/components/Search.jsx
 import React, { useState } from 'react';
 import { fetchUserData } from '../services/githubService';
 
@@ -43,6 +43,7 @@ function Search() {
       {userData && (
         <div>
           <img src={userData.avatar_url} alt="User Avatar" style={{ width: '100px', height: '100px' }} />
+          <p>Login: {userData.login}</p>
           <p>Name: {userData.name || 'Not available'}</p>
           <p>
             Profile: <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
