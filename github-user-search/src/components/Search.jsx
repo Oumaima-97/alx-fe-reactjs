@@ -1,56 +1,58 @@
-import { useState } from "react";
-import axios from "axios";
+// github-user-search/src/components/Search.js
+import React, { useState } from 'react';
+import { fetchUserData } from '../services/githubService';
 
-const Search = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+function Search() {
+  const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
-  const handleSearch = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-    setUserData(null);
+    setError(null);
+    setUserData(null); // Clear previous results
 
     try {
-      const response = await axios.get(`https://api.github.com/users/${searchTerm}`);
-      setUserData(response.data);
+      const data = await fetchUserData(username);
+      setUserData(data);
     } catch (err) {
-      setError("Looks like we can't find the user");
+      setError(err);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="p-4">
-      <form onSubmit={handleSearch} className="mb-4">
+    <div>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Enter GitHub username"
-          className="border p-2 rounded"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <button type="submit" className="ml-2 bg-blue-500 text-white p-2 rounded">
-          Search
-        </button>
+        <button type="submit">Search</button>
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
+
+      {error && <p>Looks like we cant find the user.</p>}
+
       {userData && (
-        <div className="border p-4 rounded">
-          <img src={userData.avatar_url} alt="Avatar" className="w-20 h-20 rounded-full" />
-          <h2 className="text-xl">{userData.name}</h2>
-          <a href={userData.html_url} className="text-blue-500">
-            View Profile
-          </a>
+        <div>
+          <img src={userData.avatar_url} alt="User Avatar" style={{ width: '100px', height: '100px' }} />
+          <p>Name: {userData.name || 'Not available'}</p>
+          <p>
+            Profile: <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
+              {userData.html_url}
+            </a>
+          </p>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default Search;
