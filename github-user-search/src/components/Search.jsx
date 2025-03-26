@@ -1,34 +1,50 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import axios from "axios";
 
-const Search = ({ onSearch, loading, error, user }) => {
-  const [query, setQuery] = useState("");  // State to hold the input value
+const Search = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSearch = (e) => {
-    e.preventDefault(); // Prevent form submission
-    onSearch(query);    // Pass the query to the parent component
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    setUserData(null);
+
+    try {
+      const response = await axios.get(`https://api.github.com/users/${searchTerm}`);
+      setUserData(response.data);
+    } catch (err) {
+      setError("Looks like we can't find the user");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSearch}>
+    <div className="p-4">
+      <form onSubmit={handleSearch} className="mb-4">
         <input
           type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}  // Update query state as user types
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Enter GitHub username"
+          className="border p-2 rounded"
         />
-        <button type="submit">Search</button>
+        <button type="submit" className="ml-2 bg-blue-500 text-white p-2 rounded">
+          Search
+        </button>
       </form>
 
-      {loading && <p>Loading...</p>}  {/* Show loading text while fetching data */}
-
-      {error && <p>Looks like we can't find the user</p>}  {/* Display error message if user is not found */}
-
-      {user && !error && (
-        <div className="user-card">
-          <img src={user.avatar_url} alt={`${user.login}'s avatar`} width="100" />
-          <h2>{user.login}</h2>
-          <a href={`https://github.com/${user.login}`} target="_blank" rel="noopener noreferrer">
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+      {userData && (
+        <div className="border p-4 rounded">
+          <img src={userData.avatar_url} alt="Avatar" className="w-20 h-20 rounded-full" />
+          <h2 className="text-xl">{userData.name}</h2>
+          <a href={userData.html_url} className="text-blue-500">
             View Profile
           </a>
         </div>
