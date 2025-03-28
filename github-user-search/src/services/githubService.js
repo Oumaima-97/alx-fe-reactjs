@@ -1,32 +1,42 @@
 import axios from "axios";
 
 // Base URL for GitHub API
-const BASE_URL = "https://api.github.com";
+const BASE_URL = "https://api.github.com/search/users?q";
 
-// Function to fetch user data by username (basic search)
-export const fetchUserData = async (username) => {
+// Fonction pour effectuer une recherche avancée d'utilisateurs avec des filtres supplémentaires
+export const fetchAdvancedUserSearch = async (query, location, minRepos) => {
   try {
-    const response = await axios.get(`${BASE_URL}/users/${username}`);
-    return response.data; // Return user data
+    // Construction de la chaîne de requête avec les filtres
+    let searchQuery = `q=${query}`;
+
+    // Ajout des filtres supplémentaires
+    if (location) {
+      searchQuery += `+location:${location}`;  // Filtrer par localisation
+    }
+    if (minRepos) {
+      searchQuery += `+repos:>=${minRepos}`;  // Filtrer par nombre minimum de dépôts
+    }
+
+    // Appel API avec l'URL complète de recherche d'utilisateurs
+    const response = await axios.get(`${BASE_URL}/search/users?${searchQuery}`);
+
+    // Vérification des résultats et renvoi de la liste des utilisateurs
+    if (response.data && response.data.items) {
+      return response.data.items; // Retourne les utilisateurs trouvés
+    } else {
+      throw new Error("No users found");
+    }
   } catch (error) {
-    throw new Error("User not found");
+    throw new Error("Error fetching search results: " + error.message);
   }
 };
 
-// Function for advanced user search (search users with additional filters like location and minimum repos)
-export const fetchAdvancedUserSearch = async (query, location, minRepos) => {
+// Fonction pour récupérer les données d'un utilisateur par son nom d'utilisateur
+export const fetchUserData = async (username) => {
   try {
-    // Start building the search query
-    let searchQuery = `q=${query}`;
-
-    // Add optional filters (location and minimum repositories)
-    if (location) searchQuery += `+location:${location}`;
-    if (minRepos) searchQuery += `+repos:>=${minRepos}`;
-
-    // Make API request using the GitHub Search API
-    const response = await axios.get(`${BASE_URL}/search/users?${searchQuery}`);
-    return response.data.items; // Return list of users that match search
+    const response = await axios.get(`${BASE_URL}/users/${username}`);
+    return response.data; // Retourne les données de l'utilisateur
   } catch (error) {
-    throw new Error("Error fetching search results");
+    throw new Error("User not found");
   }
 };

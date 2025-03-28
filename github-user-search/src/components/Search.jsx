@@ -1,4 +1,3 @@
-// github-user-search/src/components/Search.jsx
 import React, { useState } from 'react';
 import { searchUsers } from '../services/githubService';
 import './Search.css'; // Import Tailwind styles
@@ -13,24 +12,31 @@ function Search() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
+  // New fetchUserData function
+  const fetchUserData = async (query, currentPage) => {
+    try {
+      const data = await searchUsers(query, currentPage);
+      return data.items;
+    } catch (err) {
+      setError(true);  // Set error state to true on error
+      return [];
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
+    setError(null);  // Reset error on new search
     setSearchResults([]);
     setPage(1);
     setHasMore(true);
 
-    try {
-      const query = `${username} location:${location} repos:>${minRepos}`;
-      const data = await searchUsers(query, 1);
-      setSearchResults(data.items);
-      setHasMore(data.items.length === 30); // Assuming 30 results per page
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
+    const query = `${username} location:${location} repos:>${minRepos}`;
+    const data = await fetchUserData(query, 1);
+    
+    setSearchResults(data);
+    setHasMore(data.length === 30); // Assuming 30 results per page
+    setLoading(false);
   };
 
   const handleLoadMore = async () => {
@@ -39,17 +45,13 @@ function Search() {
     setLoading(true);
     const nextPage = page + 1;
 
-    try {
-      const query = `${username} location:${location} repos:>${minRepos}`;
-      const data = await searchUsers(query, nextPage);
-      setSearchResults([...searchResults, ...data.items]);
-      setHasMore(data.items.length === 30);
-      setPage(nextPage);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
+    const query = `${username} location:${location} repos:>${minRepos}`;
+    const data = await fetchUserData(query, nextPage);
+
+    setSearchResults([...searchResults, ...data]);
+    setHasMore(data.length === 30);
+    setPage(nextPage);
+    setLoading(false);
   };
 
   return (
@@ -95,7 +97,7 @@ function Search() {
 
       {loading && <p className="text-center">Loading...</p>}
 
-      {error && <p className="text-center text-red-500">Looks like we cant find the user.</p>}
+      {error && <p className="text-center text-red-500">Looks like we cant find the user</p>}
 
       {searchResults.length > 0 && (
         <div>
